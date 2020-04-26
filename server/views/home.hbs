@@ -22,5 +22,8 @@
     function send(v){
 		socket.emit('send',v);
     }
+	 socket.on("responded",(data) =>{
+		console.log("Responded data ->",data)      
+    })
     </script>
 </html>
