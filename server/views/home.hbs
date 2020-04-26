@@ -22,7 +22,7 @@
     function send(v){
 		socket.emit('send',v);
     }
-	 socket.on("responded",(data) =>{
+	 socket.on("feedback",(data) =>{
 		console.log("Responded data ->",data)      
     })
     </script>
