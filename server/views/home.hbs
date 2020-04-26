@@ -2,16 +2,24 @@
 <html>
   <head>
     <title>Controle</title>
-    
+    <style>
+button {
+  		margin: 10px;
+		  padding: 10px;
+	}
+	</style>
   </head>
   <body>
+	  <center>
+		  <h1>Controle</h1>
     <form action="">
-      <button type="button" value="E" onclick="send('l')" ></button>
-	  <button type="button" value="D" onclick="send('r')" ></button><br>
-	  <button type="button" value="F" onclick="send('f')" ></button>
-	  <button type="button" value="T" onclick="send('b')" ></button><br>
-	  <button type="button" value="P" onclick="send('s')" ></button>
+		<button type="button" onclick="send('f')" >F</button><br>
+      <button type="button" onclick="send('l')" >E</button>
+	  <button type="button" onclick="send('r')" >D</button><br>
+	  <button type="button" onclick="send('b')" >T</button><br>
+	  <button type="button" onclick="send('s')" >Parar</button>
     </form>
+	</center>
   </body>
     
     <script src="/socket.io/socket.io.js"></script>
