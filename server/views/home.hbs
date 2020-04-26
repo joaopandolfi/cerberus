@@ -6,11 +6,11 @@
   </head>
   <body>
     <form action="">
-      <button value="E" onclick="send('l')"></button>
-	  <button value="D" onclick="send('r')"></button>
-	  <button value="F" onclick="send('f')"></button>
-	  <button value="T" onclick="send('b')"></button>
-	  <button value="P" onclick="send('s')"></button>
+      <imput type="button" value="E" onclick="send('l')"/>
+	  <imput type="button" value="D" onclick="send('r')"/>
+	  <imput type="button" value="F" onclick="send('f')"/>
+	  <imput type="button" value="T" onclick="send('b')"/>
+	  <imput type="button" value="P" onclick="send('s')"/>
     </form>
   </body>
     
@@ -22,17 +22,5 @@
     function send(v){
 		socket.emit('send',v);
     }
-
-
-    $(function () {
-        
-        $('form').submit(function(e){
-            e.preventDefault(); // prevents page reloading
-            socket.emit('send', $('#m').val());
-            $('#m').val('');
-            return false;
-        });
-
-    });
     </script>
 </html>
