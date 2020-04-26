@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket Test</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <input id="m" autocomplete="off" /><button onclick="add()">join</button>
+    </form>
+  </body>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    
+    <script>
+      var socket = io();
+      var plt = "NpFedyUwUm6002ndwsA*22e!!w2r9ZcstX3AnW32qAduzGoHj"
+    function add(){
+      joinQueue(document.getElementById("m").value);
+    }
+
+      function joinQueue(idPatient){
+        socket.emit("queue_patient",{token:plt,id:idPatient})
+      }
+
+      // Get next patient
+      function popPatient(){
+        socket.emit("pop_queue_patient",{token:"doctorToken"})
+      }
+
+    $(function () {
+        
+        $('form').submit(function(e){
+            e.preventDefault(); // prevents page reloading
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+
+        
+        socket.on("queue_patients_status",(data)=>{
+          console.log(data)
+        });
+
+        socket.on("queue_patient_position",(data)=>{
+          console.log("Postion",data)
+        })
+
+        socket.on("welcome",(data)=>{
+          console.log("Connected",data)
+        })
+
+
+        // Receive patient To attend
+        socket.on("queued_patient",(data)=>{
+          console.log("Next patient do attend",data)
+        })
+    });
+    </script>
+</html>
