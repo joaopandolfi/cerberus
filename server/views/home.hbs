@@ -1,326 +1,38 @@
-{% extends './default-page.hbs' %} 
-
-{% block content %}
-	<div class='row m0'>
-		<!--Botoes-->
-		<div class='col-sm-9'>
-			<div class="col-sm-12">
-				<!--Voltar-->
-				<div id='next' class="col-sm-4 box-icon noselect pointer">
-					<div class="branco p4 sombra cantos-3">
-						<div class="center stats ml3 pt2" onclick="popPatient()">
-							<div id="btn-next" class='txt-verde bold pb0'><font size='5px'><i class="fa fa-phone pull-left pt2 ml3"></i>Próximo</font></div>
-						</div>
-					</div>
-				</div>
-				<div  class="col-sm-4 box-icon noselect pointer">
-					<div class="branco p4 sombra cantos-3">
-						<div class="center stats ml3 pt2" onclick="viewControl.toggleProntuary();">
-							<div class='txt-azul-8 bold pb0'><font size='5px'>Prontuário <i class="fa fa-pencil-square-o pull-right pt2 mr3"></i></font></div>
-						</div>
-					</div>
-				</div>					
-				<!--Próximo-->
-				<div id='finish'  class="col-sm-4 box-icon noselect pointer">
-					<div class="branco p4 sombra cantos-3">
-						<div class="center stats ml3 pt2" onclick="finish();">
-							<div id="btn-finish" class='txt-cinza-1 bold pb0'><font size='5px'>Finalizar <i class="fa fa-exclamation-circle pull-right pt2 mr3"></i></font></div>
-						</div>
-					</div>
-				</div>	
-			</div>
-			
-			<!--Fim de Botoes-->
-	
-			<!-- I-window -->
-			<div class="col-sm-12 branco sombra cantos-3 p1 h81">
-				<iframe id='attendance' class="w100 h80" src="" frameborder='0' allow="microphone; camera" allowfullscreen></iframe>
-			</div>		
-		</div>
-		<div class='col-sm-3 pl1 pr1 pt0 pb0' style='max-height:94vh; overflow-y: auto;'>
-			<div id='prontuario' class='none col-sm-12 mr5 branco p0 sombra cantos-3 mb3'>
-				<div class='border-b noselect pl5px cinza-8 txt-branco pt1 pb1 cantos-t-5'>PRONTUÁRIO</div>
-				<div class='col-sm-12 p2'>
-					<textarea class='w100 h230px p2' id="pront" name='prontuario'  placeholder='Prontuário do paciente'></textarea>
-				</div>
-				<div class='col-sm-12 pt2 pb4 pl3 pr3'>
-					<span>Encaminhamento:</span>
-					<select class='w100 mt2' id="move-to">
-							<option value="0" >Casa</option>
-							<option value="1">Atendimento Medico UPA ou UBS</option>
-							<option value="2">Atendimento Médico Hospital</option>
-					</select>
-
-				</div>				
-			</div>
-			<div class='col-sm-12 h20 branco p0 sombra cantos-3 mb3'>
-				<div class='border-b noselect pl5px black txt-branco pt1 pb1 cantos-t-5'>DADOS DO PACIENTE</div>
-				<div id="dadosDiv"></div>
-			</div>
-			<div class='col-sm-12 h24 branco p0 sombra cantos-3 mb3'>
-				<div class='border-b noselect pl5px azul-6 txt-branco pt1 pb1 cantos-t-5'>SINTOMAS</div>
-				<div id="sintomas" class='p2'></div>
-			</div>	
-			<div class='col-sm-12 h24 branco p0 sombra cantos-3 mb3'>
-				<div class='border-b noselect pl5px vermelho txt-branco pt1 pb1 cantos-t-5'>FATORES</div>
-				<div id="fatores" class='p2'></div>
-			</div>		
-			<div class='col-sm-12 h21 branco p0 sombra cantos-3 mb3'>
-				<div class='border-b noselect pl5px cinza-8 txt-branco pt1 pb1 cantos-t-5'>MEDICAMENTOS</div>
-				<div id="medicamentos" class='p2'></div>
-			</div>
-		</div>		
-	</div>			
-	
-	<div id='termos' class='panel box-fixo panel-default branco cantos-5'>
-		<div class='panel-body middle p6 justify'>
-			<p><font size='4px'>Bem vindo Dr(a) <b>{{metadata.user.name}}!</b></font></p>
-
-			<p>Este é seu ambiente de atendimento. A seguir você será direcionado aos pacientes, em ordem de chegada (tela superior direita), basta clicar e receberá a video chamada e o resumo dos dados que ele imputou.</p>
-			<p>Não recomendamos em coletar o <b>Nome Completo, RG</b> ou <b>CPF</b>, pois isso não irá mudar o atendimento.</p>
-			<p>Utilize as recomendações do Ministério da Saúde e em caso de dúvidas ou sugestões, entre em contato com
-			 <b>contato@w3.care</b> ou utilize  nosso canal de atendimento <b>11 982815500</b>.</p>
-			 <p>Seu trabalho é muito importante para todos nós, Muito obrigado e boas consultas.</p>
-
-		</div>
-		<div class='panel-footer absolute w100 center' style="bottom: 0;">
-			<input type="checkbox" id="ciente"  name="ciente" onchange=ciente.sim();>
-			<label class='ml1' for="ciente">Estou ciente com a política de privacidade!</label>
-		</div>
-	</div>
-	<div class='box-preto'></div>
-	<div id='loader' class='loader none'></div>
-	<audio id="songNewPatient"><source src="public/songs/patient.mp3" type="audio/mpeg"></audio>	
-
-	<script src="/socket.io/socket.io.js"></script>
+<!doctype html>
+<html>
+  <head>
+    <title>Cntrole</title>
+    
+  </head>
+  <body>
+    <form action="">
+      <button value="E" onclick="send('l')"></button>
+	  <button value="D" onclick="send('r')"></button>
+	  <button value="F" onclick="send('f')"></button>
+	  <button value="T" onclick="send('b')"></button>
+	  <button value="P" onclick="send('s')"></button>
+    </form>
+  </body>
+    
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-   
-	<script>
-		var socket = io();
-		var baseUrl = {{ baseURL | dump | safe }} ;
-		var patientList = [];
-		var strResponses = ['Falta de ar','Febre','Nariz escorrendo','Tosse','Dor de garganta','Cansaço','Vômitos ou enjôo', 'Espirros','Diarréia','Dor de cabeça', 'Dor no corpo', 'Perda do olfato']
-		var strFactors = ['Doenças no Coração','Hipertensão Grave','Doenças no Pulmão','Diabetes em uso de insulina','Doenças nos Rins','Câncer','Doenças auto-imune', 'Sou Transplantado','Gravidez','HIV/AIDS']
-		var strMedicines = ['Imunosupressor', 'Corticosteróides','Insulina','Tratamento de HIV/AIDS']
-		var patient;
-
-		var viewControl = {
-			status:{
-				next:true,
-				finish:false,
-			},
-			lockNext: ()=>{
-				let bt = document.getElementById("btn-next")
-				bt.classList.remove("txt-verde")
-				bt.classList.add("txt-cinza-1")
-				viewControl.status.next = false;
-			},
-			lockFinish: () =>{
-				let bt = document.getElementById("btn-finish")
-				bt.classList.remove("txt-vermelho")
-				bt.classList.add("txt-cinza-1")
-				viewControl.status.finish = false;
-			},
-			releaseNext: () =>{
-				let bt = document.getElementById("btn-next")
-				bt.classList.remove("txt-cinza-1")
-				bt.classList.add("txt-verde")
-				viewControl.status.next = true;
-			},
-			releaseFinish: ()=>{
-				let bt = document.getElementById("btn-finish")
-				bt.classList.remove("txt-cinza-1")
-				bt.classList.add("txt-vermelho")
-				viewControl.status.finish = true;
-			},
-			toggleProntuary: ()=>{
-				$('#prontuario').toggle();
-			},
-			hideProntuary: () =>{
-				$('#prontuario').hide();
-			},
-			loaderShow: ()=>{
-				$('.loader').show();
-			},
-			loaderHide: ()=>{
-				$('.loader').hide();
-			}
-		}
-
-		//CHAMO OS TERMOS
-		$(document).ready(function() {
-			ciente.checa();
-		});
-		
-		//CHECO SE FOI ACEITO OS TERMOS
-		var ciente = {
-			checa: 	function(){
-				var sim = sessionStorage.getItem("ciente");
-				if(sim!='1'){
-					$('#termos').show();
-					$('.box-preto').show();
-				}
-			},
-			sim: function(){
-				sessionStorage.setItem("ciente",'1');
-				$('#termos').hide();
-				$('.box-preto').hide();
-			}
-		}
-		
-		// DADOS DO PACIENTE
-		function putPatientData(name,age,proba,responses,imc,professional,heigth,kg,suspect) {
-			var elem = document.getElementById("dadosDiv")
-			var sint = document.getElementById("sintomas")
-			var fato = document.getElementById("fatores")
-			var medicine = document.getElementById("medicamentos")
-			
-			let sImc = String(imc)
-			let sProfessional = professional ? 'Sim' : 'Não'
-			let sSuspect = suspect ? 'Sim' : 'Não'
-			let resp = responses.replace(/::/g,",").replace(/:/g,"").split(",")
-			resps =  "<div class='border-b pl5px h30px pt2'><span class='mr3'>Nome:</span><b>"+name+"</b></div>"
-				  +  "<div class='border-b pl5px h30px pt2'><span class='mr3'>Idade:</span><b>"+age+"</b></div>"
-				  +  "<div class='border-b pl5px h70px pt2'><span class='mr3'>IMC:</span><b>"+sImc.substr(0,4)+" (Peso: "+kg+") (Altura:"+heigth+") </b></div>"
-				  +  "<div class='border-b pl5px h30px pt2'><span class='mr3'>Contato COVID:</span><b>"+sSuspect+ "</b></div>"
-				  +  "<div class='border-b pl5px h30px pt2'><span class='mr3'>Profissional da saúde:</span><b>"+sProfessional+ "</b></div>"
-				  +  "<div class='border-b pl5px h30px pt2 mb1'><span class='mr3'>Probabilidade:</span><b>"+proba.substr(0,4)+"</b></div>";
-			
-			respsSint = "";
-			respsFato = "";
-			respsMedicine = "";
-
-			resp.map(r=>{
-				let v = parseInt(r)
-				if(v<30)
-					respsSint += "<div class='btn btn-sm btn-default w46 m1 cantos-5 border-1 center txt-azul-8 float-left'><font size='1%'><b>" + strResponses[v] + "</b></font></div>"
-				else if(r<60)
-					respsFato += "<div class='btn btn-sm btn-default m1 w40 p1 center txt-vermelho float-left'><font size='1%'><b>" + strFactors[v-30] + "</b></font></div>"
-				else 
-					respsMedicine += "<div class='btn btn-sm btn-default m2 w42  center txt-cinza-8'><font size='1%'><b>" + strMedicines[v-60] + "</b></font></div>"
-			});
-			viewControl.loaderHide()
-			viewControl.releaseFinish()
-
-			sint.innerHTML 		= respsSint;
-			fato.innerHTML 		= respsFato;
-			medicine.innerHTML 	= respsMedicine;
-			elem.innerHTML 		= resps;
-		}
-
-		function putPront(id,to,text){
-			$.ajax({
-				url: `${window.location.origin}/rest/patient/p/${id}`,
-				method: 'POST',
-				data: {to,text},
-				success: (resp) => {
-					console.log(`Success`,resp)
-				},
-				error: (jqXHR, textStatus) => {
-					releaseControls()
-					console.log(jqXHR, textStatus)
-					alert('Usuário/senha inválido.')
-				}
-       		})
-		}
-		
-		function getPatientData(id){
-			patient = id
-			$.ajax({
-				url: `${window.location.origin}/rest/patient/get/${id}`,
-				method: 'GET',
-				data: {},
-				success: (resp) => {
-					console.log(resp);
-					p = resp.data
-					putPatientData(p.name,p.age,String(p.riskProba),p.responses,p.imc,p.professional,p.height,p.kg,p.suspect)
-				},
-				error: (jqXHR, textStatus) => {
-					releaseControls()
-					console.log(jqXHR, textStatus)
-					alert('Usuário/senha inválido.')
-				}
-       		})
-		}
-
-		var finish= function(){
-			if(!viewControl.status.finish)
-				return
-			//Send data
-			putPront(patient,document.getElementById("move-to").value,document.getElementById("pront").value)
-
-			// View control
-			viewControl.lockFinish()
-			viewControl.releaseNext()
-			viewControl.hideProntuary()
-			document.getElementById("attendance").src = "";
-			document.getElementById("dadosDiv").innerHTML = "";
-			document.getElementById("sintomas").innerHTML = "";
-			document.getElementById("fatores").innerHTML  = "";
-			document.getElementById("medicamentos").innerHTML  = "";
-			document.getElementById("pront").value = "";
-			document.getElementById("move-to") = "0";
-			patient = ""
-		}
-		
-		// SOM DE QUANDO CHEGA UM NOVO PACIENTE
-		var songs = {
-			newpatient : function(){
-				var x = document.getElementById("songNewPatient"); 
-				x.play();
-			}
-		}
-
-		function updateList(){
-			var elem = document.getElementById("listPatients");
-			let content = "";
-	
-			patientList.map(m=>{
-				content += `<p><span class='fa fa-user w23px'></span> ${m.substr(0,15)} </p>`
-			})
-			elem.innerHTML = content;
-		}
+    
+    <script>
+      var socket = io();
+    function send(v){
+		socket.emit('send',v);
+    }
 
 
-		socket.on("queue_patients_status",(data)=>{
-		  if(patientList.length == 0 )
-		  songs.newpatient()
-		  
-		  patientList = data.queue.slice(0,8)
-		  updateList()
+    $(function () {
+        
+        $('form').submit(function(e){
+            e.preventDefault(); // prevents page reloading
+            socket.emit('send', $('#m').val());
+            $('#m').val('');
+            return false;
         });
 
-        socket.on("welcome",(data)=>{
-          console.log("Connected",data)
-		  patientList = data.queue;
-		  updateList()
-        });
-
-        // Receive patient To attend
-        socket.on("queued_patient",(data)=>{
-          console.log("Next patient do attend",data)
-		  patientList.shift();
-		  if(data.patient != undefined){
-		  	document.getElementById("attendance").src = baseUrl+data.patient.replace(/-/g,"");
-			getPatientData(data.patient)
-			viewControl.lockNext();
-		  }
-		  else {
-		  	viewControl.loaderHide();
-			viewControl.releaseNext();
-		  }
-		  updateList()
-        });
-		
-		// Get next patient
-		function popPatient(){
-			if(!viewControl.status.next)
-				return
-		
-			socket.emit("pop_queue_patient",{token:{{ tokenDoctor | dump | safe }}});
-			viewControl.loaderShow();
-		}
-	</script>
-	
-{% endblock %}
-
+    });
+    </script>
+</html>
